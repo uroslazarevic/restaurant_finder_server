@@ -1,0 +1,33 @@
+{
+    "name": "restaurant-finder-server",
+    "version": "1.0.0",
+    "description": "Please read this file in order to have clear guides on how to commit your code.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js",
+        "start-dev": "nodemon app.js"
+    },
+    "dependencies": {
+        "@types/sequelize": "^4.28.1",
+        "async": "^3.0.1",
+        "body-parser": "^1.19.0",
+        "crypto": "^1.0.1",
+        "dotenv": "^8.0.0",
+        "express": "^4.16.4",
+        "pg": "^7.11.0",
+        "sequelize": "^5.8.6",
+        "sequelize-cli": "^5.4.0"
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.16.0",
+        "nodemon": "^1.19.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/uroslazarevic/restaurant_finder_server.git"
+    },
+    "author": "Uros Lazarevic",
+    "license": "ISC"
+}

@@ -1,0 +1,43 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const sequelize = require('./models').sequelize;
+const app = express();
+
+// routes
+const dropbox = require('./routes/dropbox');
+// routes
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json('application/json'));
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
+
+app.use(dropbox);
+
+app.use((error, req, res, next) => {
+    const status = error.statusCode || 500;
+    const message = error.message || 'Server error';
+    const data = error.data;
+
+    res.status(status).json({ message, data });
+});
+
+sequelize
+    .sync({
+        // force: false, // To create table if exists , so make it false
+        // alter: true, // To update the table if exists , so make it true
+    })
+    .then(() => {
+        app.listen(process.env.PORT, () => {
+            console.log(`Example app listening on port ${process.env.PORT}!`);
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+    });
