@@ -5,7 +5,7 @@ const sequelize = require('./models').sequelize;
 const app = express();
 
 // routes
-const dropbox = require('./routes/dropbox');
+const auth = require('./routes/auth');
 // routes
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,20 +18,18 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(dropbox);
+app.use(auth);
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;
     const message = error.message || 'Server error';
-    const data = error.data;
-
-    res.status(status).json({ message, data });
+    res.status(status).json({ message });
 });
 
 sequelize
     .sync({
-        // force: false, // To create table if exists , so make it false
-        // alter: true, // To update the table if exists , so make it true
+        force: false, // To create table if exists , so make it false
+        logging: false,
     })
     .then(() => {
         app.listen(process.env.PORT, () => {

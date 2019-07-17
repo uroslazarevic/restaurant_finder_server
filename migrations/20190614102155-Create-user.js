@@ -3,19 +3,14 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.createTable('users', {
             id: {
-                defaultValue: Sequelize.UUIDV1,
+                defaultValue: Sequelize.UUIDV4,
                 primaryKey: true,
                 type: Sequelize.UUID,
             },
-            name: {
-                type: Sequelize.STRING,
-            },
-            email: {
-                type: Sequelize.STRING,
-            },
-            googleDriveToken: { type: Sequelize.TEXT, field: 'google_drive_token' },
-            oneDriveToken: { type: Sequelize.TEXT, field: 'one_drive_token' },
-            dropboxToken: { type: Sequelize.TEXT, field: 'dropbox_token' },
+            username: { type: Sequelize.STRING, allowNull: false },
+            email: { type: Sequelize.STRING, allowNull: false },
+            password: { type: Sequelize.TEXT, allowNull: false },
+            confirmed: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
             createdAt: {
                 type: Sequelize.DATE,
                 field: 'created_at',

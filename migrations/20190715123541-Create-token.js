@@ -1,15 +1,14 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('statuses', {
+        return queryInterface.createTable('tokens', {
             id: {
-                defaultValue: Sequelize.UUIDV1,
+                type: Sequelize.INTEGER,
                 primaryKey: true,
-                type: Sequelize.UUID,
+                autoIncrement: true,
             },
-            name: {
-                type: Sequelize.STRING,
-            },
+            token: { type: Sequelize.STRING, allowNull: false },
+            userId: { type: Sequelize.UUID, allowNull: false, field: 'user_id' },
             createdAt: {
                 type: Sequelize.DATE,
                 field: 'created_at',
@@ -21,6 +20,6 @@ module.exports = {
         });
     },
     down: (queryInterface) => {
-        return queryInterface.dropTable('statuses');
+        return queryInterface.dropTable('tokens');
     },
 };
