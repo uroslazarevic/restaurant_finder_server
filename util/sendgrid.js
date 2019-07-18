@@ -96,7 +96,6 @@ const verificationEmail = (email, username, verificationToken) => {
       `,
     };
     sgMail.send(msg);
-    console.log('Verification email sent');
 };
 const sendCancelationEmail = (email, name) => {
     sgMail.send({
@@ -105,7 +104,6 @@ const sendCancelationEmail = (email, name) => {
         subject: 'Sorry to see you go!',
         text: `Goodbye, ${name}. I hope to see you again.`,
     });
-    console.log('USPESNO SLANJE CANCELATION EMAILA');
 };
 
 module.exports = {

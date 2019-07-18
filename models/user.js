@@ -54,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = function(models) {
         // associations can be defined here
         User.hasMany(models.Token, { foreignKey: 'user_id', onDelete: 'cascade' });
+        User.hasMany(models.Collection, { foreignKey: 'user_id', onDelete: 'cascade' });
     };
 
     User.generateToken = (password) => {
@@ -62,12 +63,10 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     User.prototype.generateHash = async (password) => {
-        console.log('HASH PASS CalLED');
         const hash = await bcrypt.hash(password, 8);
         return hash;
     };
     User.prototype.validatePassword = async (password, hashedPassword) => {
-        console.log('VALIDATE PASS', password, hashedPassword);
         const match = await bcrypt.compare(password, hashedPassword);
         return match;
     };

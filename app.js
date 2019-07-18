@@ -6,6 +6,7 @@ const app = express();
 
 // routes
 const auth = require('./routes/auth');
+const collection = require('./routes/collection');
 // routes
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.use(auth);
+app.use(collection);
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;

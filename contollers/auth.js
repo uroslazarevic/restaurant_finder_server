@@ -51,7 +51,7 @@ exports.confirmEmail = async (req, res, next) => {
     try {
         const token = await Token.findOne({ where: { token: verificationToken } });
         if (!token) {
-            return res.status(404).json({ message: 'Token not found' });
+            return res.status(500).json({ message: 'Server error. Token not found' });
         }
         const user = await token.getUser();
         const decodedToken = await Token.validateToken(verificationToken);
@@ -88,9 +88,28 @@ exports.signin = async (req, res, next) => {
         next(err);
     }
 };
-exports.logout = async (req, res, next) => {
+exports.signout = async (req, res, next) => {
+    const { userId, token } = req.body;
+
     try {
-        res.json({ message: 'logout' });
+        const user = await User.findOne({ where: { id: userId } });
+        if (!user) {
+            res.status(500).json({ message: 'Server error. User not found' });
+        }
+        const tokens = await user.getTokens({ where: { token } });
+        if (!tokens) {
+            res.status(500).json({ message: 'Server error. Token not found' });
+        }
+        const authToken = tokens[0];
+        await authToken.destroy();
+        res.json({ message: 'Logout successfull!' });
+    } catch (err) {
+        next(err);
+    }
+};
+exports.test = async (req, res, next) => {
+    try {
+        res.json({ message: 'test' });
     } catch (err) {
         next(err);
     }
