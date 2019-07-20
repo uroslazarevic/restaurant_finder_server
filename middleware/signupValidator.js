@@ -8,7 +8,6 @@ exports.signupValidator = [
         .isEmail()
         .withMessage('Please enter a valid email')
         .custom(async (email) => {
-            console.log('EMAIL', email);
             email = email.toLowerCase();
             const result = await User.findOne({ where: { email } });
             if (result) {

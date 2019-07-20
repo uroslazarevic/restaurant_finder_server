@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         try {
             return jwt.verify(token, process.env.JWT_SECRET);
         } catch (err) {
-            console.log(err);
-            const error = new Error(err.message);
+            console.log('DECODED TOKEN ERR', err);
+            const error = new Error('Unauthorized access.');
             error.statusCode = 401;
             throw error;
         }

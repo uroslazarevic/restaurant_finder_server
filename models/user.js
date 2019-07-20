@@ -57,8 +57,11 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(models.Collection, { foreignKey: 'user_id', onDelete: 'cascade' });
     };
 
-    User.generateToken = (password) => {
-        const token = jwt.sign({ password }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    User.generateToken = (userData, accessToken = false) => {
+        if (!accessToken) {
+            return jwt.sign({ ...userData }, process.env.JWT_SECRET);
+        }
+        const token = jwt.sign({ ...userData }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return token;
     };
 
@@ -71,14 +74,13 @@ module.exports = (sequelize, DataTypes) => {
         return match;
     };
 
-    User.prototype.verifyAccount = async (user, token) => {
+    User.prototype.verifyAccount = async (user) => {
         /*
         *Remove association method* - just removes the associated foreign_key
         from the token table
         To destroy it use token.destroy()
         */
         user.confirmed = true;
-        await token.destroy();
         await user.save();
     };
 

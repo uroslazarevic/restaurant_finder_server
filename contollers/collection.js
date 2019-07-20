@@ -68,7 +68,6 @@ exports.load = async (req, res, next) => {
                 return collectionData;
             })
         );
-        console.log('modifiedRestaurants', modifiedCollections);
 
         return res.json({ message: 'Collections loaded', collections: modifiedCollections });
     } catch (err) {
