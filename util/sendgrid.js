@@ -66,7 +66,7 @@ const verificationEmail = (email, username, verificationToken) => {
                     font-size: 14px;
                     text-decoration: underline;
                 "
-                href="http://localhost:3000/confirm/?token=${verificationToken}"
+                href="${process.env.CLIENT_PORT}/confirm/?token=${verificationToken}"
                 >
                 Confirm your email
                 </a>
@@ -82,13 +82,13 @@ const verificationEmail = (email, username, verificationToken) => {
             </div>
             <div>
                 <a
-                href="http://localhost:3000/confirm/?token=${verificationToken}"
+                href="${process.env.CLIENT_PORT}/confirm/?token=${verificationToken}"
                 style="
                     font-size: 14px;
                     text-decoration: underline;
                 "
                 >
-                http://localhost:3000/confirm/?token=${verificationToken}
+                ${process.env.CLIENT_PORT}/confirm/?token=${verificationToken}
                 </a>
             </div>
             <br />
@@ -195,7 +195,7 @@ const resetPasswordEmail = (email, resetPasswordToken) => {
                 line-height: 17px;
                 margin: 0 auto;
                 "
-                href="http://localhost:3000/reset-password/?token=${resetPasswordToken}"
+                href="${process.env.CLIENT_PORT}/reset-password/?token=${resetPasswordToken}"
             >
                 RESET MY PASSWORD
             </a>
