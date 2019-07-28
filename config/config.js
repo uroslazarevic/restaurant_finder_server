@@ -8,7 +8,6 @@ const dummyDevelopmentConfig = {
     host: 'localhost',
     dialect: 'postgres',
 };
-// Delete dummyDevelopmentConfig after you've set your DB configs
 
 module.exports = {
     development: {
